@@ -2,7 +2,7 @@ import pyxel
 
 class Player():
     def __init__(self, keyUp, keyDown, x) -> None:
-        # Initialize player position, dimensions, and controls
+        #Init player position dimensions et controls
         self.x = x
         self.y = 50
         self.w = 3
@@ -12,22 +12,22 @@ class Player():
         self.speed = 0
 
     def draw(self):
-        # Draw player
+        # Dessine un joueur
         pyxel.rect(self.x, self.y, self.w, self.h, 7)
 
     def update(self):
-        # Update player position based on pressed keys
+        # Update player position quand une touche est pressée
         if pyxel.btn(self.keyUp):
             self.y -= 1.5
         if pyxel.btn(self.keyDown):
             self.y += 1.5
 
-        # Keep player within screen boundaries
+        # Garde notre joueur sur l'ecran
         if self.y < 0:
             self.y = 0
         if self.y > 120 - self.h:
             self.y = 120 - self.h
 
     def reset(self): 
-        # Reset player position
+        # Reset la position
         self.y = 50

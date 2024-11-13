@@ -12,7 +12,7 @@ class Ball:
         self.out_of_bounds = False
 
     def draw(self):
-        # Draw ball
+        # Dessine ball
         pyxel.circ(self.x, self.y, self.r, 7)
 
     def update(self):
@@ -20,13 +20,13 @@ class Ball:
         self.x += self.speedX
         self.y += self.speedY
         
-        # Reflect ball if it hits top or bottom boundaries
+        # Difference de vitesse en fonction de ou on tape
         if self.y < 0 or self.y > 120:
             self.speedY *= -1
         
     
     def reset(self):
-        # Reset ball position and speed
+        # Reset ball position et speed
         self.x = 80
         self.y = 60
         self.speedX = -1.0 if randint(0, 1) == 0 else 1.0

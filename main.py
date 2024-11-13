@@ -15,41 +15,41 @@ class App():
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        # Toggle pause state when SPACE is pressed
+        # Mets en pause si on presse espace
         if pyxel.btnp(pyxel.KEY_SPACE):
             self.pause = not self.pause
 
         if not self.pause:
-            # Update player positions
+            # Mise a jour des position
             self.player1.update()
             self.player2.update()
-            # Check for out-of-bounds and winners
+            # Verfifie si ya un point et un gagnant
             self.check_out_of_bounds()
             self.check_winner()
             if self.game_over:
-                # Reset game on SPACE press after game over
+                # Reset game Si espace et partie over
                 if pyxel.btnp(pyxel.KEY_SPACE):
                     self.reset_game()
             # Update ball position
             self.ball.update()
-            # Display score
+            # Affiche score
             hud.show_score(self.score[0], self.score[1])
         else:
-            # Display "Press SPACE to play" when paused
+            # Affiche "Press SPACE to play" quand c'est pause
             hud.press_to_play()
 
     def draw(self):
-        # Clear screen
+        # Vide l'ecran 
         pyxel.cls(0)
-        # Draw ball and players
+        # Dessine la ball et les players
         self.ball.draw()
         self.player1.draw()
         self.player2.draw()
-        # Detect collisions between ball and players
+        # Verifie les collision entre joueur et ball 
         self.detect_collision()
         # Display score
         pyxel.text(50, 0, f"Score: {self.score}", 7)
-        # Display game over message and "Press SPACE to play" when game over
+        # Affiche le message de game over
         if self.game_over:
             if self.score[0] == 5:
                 pyxel.text(55, 55, "Player 1 Wins", 8)
@@ -57,23 +57,23 @@ class App():
                 pyxel.text(45, 40, "Player 2 Wins", 8)
             hud.game_over()
 
-        # Display "Press SPACE to play" when paused and game not over
+        # Affiche le pessage de pause
         if self.pause and not self.game_over:
             hud.press_to_play()
 
     def detect_collision(self):
-        # Detect collision between ball and player 1
+        # Detecte les collsiison entre le joueur 1 et la balle 
         if self.ball.x > self.player1.x and self.ball.x < self.player1.x + self.player1.w:
             if self.ball.y > self.player1.y and self.ball.y < self.player1.y + self.player1.h:
                 self.ball.speedX *= -1.2
 
-        # Detect collision between ball and player 2
+        # Même chose avec le joueur 2
         if self.ball.x > self.player2.x and self.ball.x < self.player2.x + self.player2.w:
             if self.ball.y > self.player2.y and self.ball.y < self.player2.y + self.player2.h:
                 self.ball.speedX *= -1.2
 
     def check_out_of_bounds(self):
-        # Check if ball goes out of bounds and update score accordingly
+        # Garde la ball dans le jeu 
         if self.ball.x < 0:
             self.ball.out_of_bounds = True
             self.ball.reset()
@@ -91,7 +91,7 @@ class App():
         return self.ball.out_of_bounds
 
     def check_winner(self):
-        # Check for winner and set game_over state
+        # Verifie si ya un gagnant
         if self.score[0] == 5 or self.score[1] == 5:
             self.game_over = True
             self.pause = True
@@ -99,7 +99,7 @@ class App():
         return False
     
     def reset_game(self):
-        # Reset game state
+        # Reset game
         self.score = [0, 0]
         self.game_over = False
         self.pause = True
