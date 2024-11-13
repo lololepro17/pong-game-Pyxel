@@ -38,7 +38,7 @@ class Ball:
 #------ import de player
 class Player():
     def __init__(self, keyUp, keyDown, x) -> None:
-        #Init player position dimensions et controls
+        #Init player position dimensions et control
         self.x = x
         self.y = 50
         self.w = 3
@@ -58,7 +58,7 @@ class Player():
         if pyxel.btn(self.keyDown):
             self.y += 1.5
 
-        # Garde notre joueur sur l'ecran
+        # Garde notre joueur sur l’écran
         if self.y < 0:
             self.y = 0
         if self.y > 120 - self.h:
